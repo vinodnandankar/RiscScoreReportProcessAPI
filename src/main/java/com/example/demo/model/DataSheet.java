@@ -38,6 +38,7 @@ public class DataSheet implements Serializable{
 	private String penTestSlaBreach;
 	private String ramlReviewPending;
 	private int riskScore;
+	private String overAllRiskClassification;
 
 	public DataSheet() {
 	}
@@ -192,6 +193,14 @@ public class DataSheet implements Serializable{
 
 	public void setRiskScore(int riskScore) {
 		this.riskScore = riskScore;
+	}
+
+	public String getOverAllRiskClassification() {
+		return overAllRiskClassification;
+	}
+
+	public void setOverAllRiskClassification(String overAllRiskClassification) {
+		this.overAllRiskClassification = overAllRiskClassification;
 	}
 
 	

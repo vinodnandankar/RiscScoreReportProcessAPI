@@ -1,5 +1,6 @@
 package com.barclays.automation.service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,7 +66,7 @@ public class RiskScoreReportPAPIService {
 		externalAPISummaryMap.put("extApiVeracodeScanPending", extenalAPITypeStream.get().filter(pendingVeracodeStatusPredicate).count());
 		externalAPISummaryMap.put("extApiRamlReviewPending", extenalAPITypeStream.get().filter(pendingRamlReviewStatusPredicate).count());
 
-		response.put("externalAPISummaryMap", externalAPISummaryMap);
+		response.put("externalAPISummaryMap", new ArrayList<>(Arrays.asList(externalAPISummaryMap)));
 
 		Map<String, Long> holisticTableMap = new HashMap<>();
 
@@ -121,11 +122,23 @@ public class RiskScoreReportPAPIService {
 		holisticTableMap.put("intMedPenTestSLABreach", internalAPITypeStream.get().filter(mediumRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
 		holisticTableMap.put("intLowPenTestSLABreach", internalAPITypeStream.get().filter(lowRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
 
-		response.put("holisticTableMap", holisticTableMap);
+		response.put("holisticTableMap", new ArrayList<>(Arrays.asList(holisticTableMap)));
+
+		
+		Map<String, Object> overallSecurityRiskMap = new HashMap<>();
+		overallSecurityRiskMap.put("noRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "No Risk".equalsIgnoreCase(api.getOverAllRiskClassification())).count());
+		overallSecurityRiskMap.put("lowRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Low Risk".equalsIgnoreCase(api.getOverAllRiskClassification())).count());
+		overallSecurityRiskMap.put("mediumRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Medium Risk".equalsIgnoreCase(api.getOverAllRiskClassification())).count());
+		overallSecurityRiskMap.put("highRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "High Risk".equalsIgnoreCase(api.getOverAllRiskClassification())).count());
+		overallSecurityRiskMap.put("criticalRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Critical Risk".equalsIgnoreCase(api.getOverAllRiskClassification())).count());
+
+		response.put("overallSecurityRiskMap", new ArrayList<>(Arrays.asList(overallSecurityRiskMap)));
 
 		System.out.println(response);
 
 		return response;
 	}
+	
+	
 
 }
