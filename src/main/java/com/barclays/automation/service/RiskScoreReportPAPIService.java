@@ -57,7 +57,8 @@ public class RiskScoreReportPAPIService {
 		response.put("RiskScoreDetails", responseRiskScoreDetails);
 
 		Supplier<Stream<DataSheet>> extenalAPITypeStream = () -> responseRiskScoreDetails.parallelStream().filter(externalAPITypePredicate);
-		
+		Supplier<Stream<DataSheet>> internalAPITypeStream = () -> responseRiskScoreDetails.parallelStream().filter(internalAPITypePredicate);
+
 		Map<String, Object> externalAPISummaryMap = new HashMap<>();
 		externalAPISummaryMap.put("reportDate", new Date());
 		externalAPISummaryMap.put("totalVulnerabilities", responseRiskScoreDetails.parallelStream().
@@ -65,6 +66,11 @@ public class RiskScoreReportPAPIService {
 		externalAPISummaryMap.put("extApiPenTestPending", extenalAPITypeStream.get().filter(pendingPenTestStatusPredicate).count());
 		externalAPISummaryMap.put("extApiVeracodeScanPending", extenalAPITypeStream.get().filter(pendingVeracodeStatusPredicate).count());
 		externalAPISummaryMap.put("extApiRamlReviewPending", extenalAPITypeStream.get().filter(pendingRamlReviewStatusPredicate).count());
+		externalAPISummaryMap.put("intApiPenTestPending", internalAPITypeStream.get().filter(pendingPenTestStatusPredicate).count());
+		externalAPISummaryMap.put("intApiVeracodeScanPending", internalAPITypeStream.get().filter(pendingVeracodeStatusPredicate).count());
+		externalAPISummaryMap.put("intApiRamlReviewPending", internalAPITypeStream.get().filter(pendingRamlReviewStatusPredicate).count());
+//		externalAPISummaryMap.put("totalExternalApiCount",extenalAPITypeStream.get().filter(externalAPITypePredicate).count());
+//		externalAPISummaryMap.put("totalInternalApiTypeCount", internalAPITypeStream.get().filter(internalAPITypePredicate).count());
 
 		response.put("externalAPISummaryMap", new ArrayList<>(Arrays.asList(externalAPISummaryMap)));
 
@@ -95,7 +101,6 @@ public class RiskScoreReportPAPIService {
 		holisticTableMap.put("extMedPenTestSLABreach", extenalAPITypeStream.get().filter(mediumRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
 		holisticTableMap.put("extLowPenTestSLABreach", extenalAPITypeStream.get().filter(lowRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
 
-		Supplier<Stream<DataSheet>> internalAPITypeStream = () -> responseRiskScoreDetails.parallelStream().filter(internalAPITypePredicate);
 		
 		holisticTableMap.put("intCriPendingRamlReview", internalAPITypeStream.get().filter(crticalRiskClassificationPredicate).filter(pendingRamlReviewStatusPredicate).count());
 		holisticTableMap.put("intHighPendingRamlReview", internalAPITypeStream.get().filter(highRiskClassificationPredicate).filter(pendingRamlReviewStatusPredicate).count());
@@ -121,6 +126,7 @@ public class RiskScoreReportPAPIService {
 		holisticTableMap.put("intHighPenTestSLABreach", internalAPITypeStream.get().filter(highRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
 		holisticTableMap.put("intMedPenTestSLABreach", internalAPITypeStream.get().filter(mediumRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
 		holisticTableMap.put("intLowPenTestSLABreach", internalAPITypeStream.get().filter(lowRiskClassificationPredicate).filter(penTestSlaBreachPredicate).count());
+//		holisticTableMap.put("totalInternalApiTypeCount", internalAPITypeStream.get().filter(internalAPITypePredicate).count());
 
 		response.put("holisticTableMap", new ArrayList<>(Arrays.asList(holisticTableMap)));
 
