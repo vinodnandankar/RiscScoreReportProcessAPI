@@ -38,15 +38,16 @@ public class DataSheet implements Serializable{
 	private String penTestSlaBreach;
 	private String ramlReviewPending;
 	private int riskScore;
-	private String overAllRiskClassification;
-
+	private String overallRiskClassification;
+	private String transactionCycle;
+	
 	public DataSheet() {
 	}
 
 	public DataSheet(int srNo, String apiVersion, String apiName, String apiType, String apiRiskClassificatin,
 			String ramlReviewStatus, Date ramlReviewDate, String veracodeStatus, Date veracodeDate,
 			String penTestStatus, Date penTestDate, String veracodeSlaBreach, String penTestSlaBreach,
-			String ramlReviewPending, int riskScore) {
+			String ramlReviewPending, int riskScore, String overallRiskClassification, String transactionCycle) {
 		super();
 		this.srNo = srNo;
 		this.apiVersion = apiVersion;
@@ -63,7 +64,11 @@ public class DataSheet implements Serializable{
 		this.penTestSlaBreach = penTestSlaBreach;
 		this.ramlReviewPending = ramlReviewPending;
 		this.riskScore = riskScore;
+		this.overallRiskClassification = overallRiskClassification;
+		this.transactionCycle = transactionCycle;
 	}
+
+
 
 	@Override
 	public String toString() {
@@ -72,7 +77,7 @@ public class DataSheet implements Serializable{
 				+ ", ramlReviewDate=" + ramlReviewDate + ", veracodeStatus=" + veracodeStatus + ", veracodeDate="
 				+ veracodeDate + ", penTestStatus=" + penTestStatus + ", penTestDate=" + penTestDate
 				+ ", veracodeSlaBreach=" + veracodeSlaBreach + ", penTestSlaBreach=" + penTestSlaBreach
-				+ ", ramlReviewPending=" + ramlReviewPending + ", riskScore=" + riskScore + "]";
+				+ ", ramlReviewPending=" + ramlReviewPending + ", riskScore=" + riskScore + ",,transactionCycle=\\\" + transactionCycle + \"]";
 	}
 
 	public int getSrNo() {
@@ -195,15 +200,21 @@ public class DataSheet implements Serializable{
 		this.riskScore = riskScore;
 	}
 
-	public String getOverAllRiskClassification() {
-		return overAllRiskClassification;
+	public String getOverallRiskClassification() {
+		return overallRiskClassification;
 	}
 
-	public void setOverAllRiskClassification(String overAllRiskClassification) {
-		this.overAllRiskClassification = overAllRiskClassification;
+	public void setOverAllRiskClassification(String overallRiskClassification) {
+		this.overallRiskClassification = overallRiskClassification;
 	}
 
-	
+	public String getTransactionCycle() {
+		return transactionCycle;
+	}
+
+	public void setTransactionCycle(String transactionCycle) {
+		this.transactionCycle = transactionCycle;
+	}
 	
 	
 }
