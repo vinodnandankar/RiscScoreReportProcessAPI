@@ -132,7 +132,7 @@ public class RiskScoreReportPAPIService {
 
 		
 		Map<String, Object> overallSecurityRiskMap = new HashMap<>();
-		overallSecurityRiskMap.put("noRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "No Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
+		overallSecurityRiskMap.put("noRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Met".equalsIgnoreCase(api.getOverallRiskClassification())).count());
 		overallSecurityRiskMap.put("lowRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Low Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
 		overallSecurityRiskMap.put("mediumRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Medium Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
 		overallSecurityRiskMap.put("highRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "High Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
