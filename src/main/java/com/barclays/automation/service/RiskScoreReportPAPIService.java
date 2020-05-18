@@ -133,10 +133,10 @@ public class RiskScoreReportPAPIService {
 		
 		Map<String, Object> overallSecurityRiskMap = new HashMap<>();
 		overallSecurityRiskMap.put("noRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Met".equalsIgnoreCase(api.getOverallRiskClassification())).count());
-		overallSecurityRiskMap.put("lowRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Low Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
-		overallSecurityRiskMap.put("mediumRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Medium Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
-		overallSecurityRiskMap.put("highRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "High Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
-		overallSecurityRiskMap.put("criticalRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Critical Risk".equalsIgnoreCase(api.getOverallRiskClassification())).count());
+		overallSecurityRiskMap.put("lowRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Low".equalsIgnoreCase(api.getOverallRiskClassification())).count());
+		overallSecurityRiskMap.put("mediumRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Medium".equalsIgnoreCase(api.getOverallRiskClassification())).count());
+		overallSecurityRiskMap.put("highRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "High".equalsIgnoreCase(api.getOverallRiskClassification())).count());
+		overallSecurityRiskMap.put("criticalRiskCount", responseRiskScoreDetails.parallelStream().filter(api -> "Critical".equalsIgnoreCase(api.getOverallRiskClassification())).count());
 
 		response.put("overallSecurityRiskMap", new ArrayList<>(Arrays.asList(overallSecurityRiskMap)));
 
